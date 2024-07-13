@@ -16,6 +16,7 @@ public class CreateRequest {
 
 	public final String INTENT = "action.entities.ENERGY_DATA";
 	public final String DAY = "day";
+	public final String DURATION = "custom";
 	public final int GROUP_BY_MINS = 15;
 	
 	public JSONObject createKiotRequest(String deviceId, Date dnew ) {
@@ -70,6 +71,23 @@ public class CreateRequest {
 		payload.put("year", year);
 		payload.put("month", month);
 		payload.put("startDay", day);
+		payload.put("device_ids", deviceList);
+		input.put("payload", payload);
+		input.put("intent", INTENT);
+		
+		System.out.println(input);
+		return input;
+	}
+	
+	public JSONObject createNewKiotRequest(String deviceId, long startTime, long endTime ) {
+		
+		ArrayList<String> deviceList = new ArrayList<>();
+		deviceList.add(deviceId);
+		JSONObject input = new JSONObject();
+		JSONObject payload = new JSONObject();
+		payload.put("duration", DURATION);
+		payload.put("timeFrom", startTime);
+		payload.put("timeTo", endTime);
 		payload.put("device_ids", deviceList);
 		input.put("payload", payload);
 		input.put("intent", INTENT);
